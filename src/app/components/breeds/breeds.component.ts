@@ -9,7 +9,7 @@ import { CatsService } from '../services/cats.service';
 })
 export class BreedsComponent implements OnInit {
 
-  @Input() catBreeds: TCat[] = [];
+  @Input() catBreeds?: TCat[] = [];
   @Input() catBreedImages: TCatImage[] = [];
   @Input() catBreed: TCat[] = [];
 
@@ -24,7 +24,7 @@ export class BreedsComponent implements OnInit {
 
     if (this.catBreed.length !== 0) this.catBreed = [];
 
-    this.catBreeds.filter(selectedCatBreed =>
+    this.catBreeds?.filter(selectedCatBreed =>
       selectedCatBreed.id === selectedCatBreedId ? this.catBreed.push(selectedCatBreed) : false
     )
   };

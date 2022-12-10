@@ -13,11 +13,11 @@ export class CatRandomImageEffect {
 		private catsServise: CatsService) { }
 
 	loadRamdonCatImage$ = createEffect(() => this.actions$.pipe(
-		ofType('[Cat Random Image] Load Cat Image'),
+		ofType('[Cat Random Image] Load Cat Random Image'),
 		mergeMap(() => this.catsServise.getCatRandomImagesForVote()
 			.pipe(
 				map(catImg => ({
-					type: '[Cats API] Cat Image Loaded Success',
+					type: '[Cats API] Cat Random Image Loaded Success',
 					payload: catImg
 				})),
 				catchError(() => of({ type: '[Cats API] Cat Image Loaded Error' }))

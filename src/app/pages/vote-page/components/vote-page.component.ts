@@ -7,39 +7,35 @@ import { Store } from '@ngrx/store';
 import { TAppState } from 'src/app/state/app.state';
 
 @Component({
-	selector: 'app-vote-page',
-	templateUrl: './vote-page.component.html',
-	styleUrls: ['./vote-page.component.scss']
+  selector: 'app-vote-page',
+  templateUrl: './vote-page.component.html',
+  styleUrls: ['./vote-page.component.scss']
 })
 export class VotePageComponent implements OnInit {
 
-  // catImage$?: Observable<TCatImage[]>;
+  catImage$?: Observable<TCatImage[]>;
 
-	constructor(private catsService: CatsService,
-		private store: Store<TAppState>) { }
+  constructor(private catsService: CatsService,
+    private store: Store<TAppState>) { }
 
-	catRandomImage: TCatImage[] = [];
-	loading = false;
-	term = '';
+  loading = false;
+  term = '';
 
+  nextCatImage(buttonEventActive: boolean) {
+    this.loading = true;
+    if (buttonEventActive) {
+      this.catImage$ = this.catsService.getCatRandomImagesForVote().pipe(
+        tap(() => this.loading = false)
+      )
+    };
+  }
 
-	nextCatImage(buttonEventActive: boolean) {
-
-		if (buttonEventActive) {
-			this.catsService.getCatRandomImagesForVote().pipe(
-				tap(() => this.loading = false)
-			).subscribe(catImage => this.catRandomImage = catImage);
-		};
-	}
-
-	ngOnInit(): void {
-		 this.loading = true;
-
-		 this.catsService.getCatRandomImagesForVote().pipe(
-			tap(() => this.loading = false)
-		 ).subscribe(catImage => this.catRandomImage = catImage)
-
-		// this.store.dispatch({ type: '[Cat Random Image] Load Cat Image' }) //! работающая версия подгрузки
-	};
+  ngOnInit(): void {
+    this.loading = true;
+    this.catImage$ = this.catsService.getCatRandomImagesForVote().pipe(
+      tap(() => this.loading = false)
+    )
+    // this.store.dispatch({ type: '[Cat Random Image] Load Cat Image' }) //! работающая версия подгрузки
+  };
 
 }

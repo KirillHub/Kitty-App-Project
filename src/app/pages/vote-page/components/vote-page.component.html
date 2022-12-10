@@ -5,13 +5,13 @@
       [svgStyle]="{'width.px': 250}"></svg-icon>
   </p>
 
-  <app-vote *ngFor="let catImg of catRandomImage"
+  <app-vote *ngFor="let catImg of catImage$ | async"
   [catImage]="catImg" (outEnterName)="nextCatImage($event)">
   </app-vote>
 
   <div [ngStyle]="{'font-size':'20px'}">
     <span [ngStyle]="{'color': 'red', 'font-size': '30px'}"
-    *ngFor="let cat of catRandomImage">
+    *ngFor="let cat of catImage$ | async">
     </span>
 
   </div>
