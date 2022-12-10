@@ -1,0 +1,49 @@
+.container{
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.app{
+  padding: 0.8rem;
+  &__title{
+    position: relative;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.7em;
+    padding:  1rem;
+    width: 12em;
+    margin: 0 auto 0.5em auto;
+
+    span{
+      position: absolute;
+      top: 0.65em;
+      right: 1em;
+    }
+  }
+}
+
+.header {
+  font-weight: 1.6em;
+  &__links{
+    border-radius: 0.8em 0.8em 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: rgba(238, 163, 175, 0.377);
+    padding: 1.2em 1.3em;
+    justify-content: space-around;
+    li {
+      margin: 0 1em 0.2em 0;
+      a {
+        font-size: 1.1em;
+        font-weight: 700;
+        &:hover{
+          text-decoration: underline;
+          background-color:  rgba(238, 163, 175, 0.6);
+        }
+      }
+    }
+  }
+}
+
+
+

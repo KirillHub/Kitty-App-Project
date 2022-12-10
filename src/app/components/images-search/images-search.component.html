@@ -1,0 +1,73 @@
+<div class="images-search__body">
+
+  <div class="images-search__selects-block-grid-container">
+
+    <div class="images-search__order">
+      <span>Order</span>
+      <select class="form-select" id="order">
+        <option>Random</option>
+      </select>
+    </div>
+
+    <div class="images-search__type">
+      <span>Type</span>
+      <select class="form-select" id="type" (change)="userEventsListener($event)">
+        <option value="jpg">All</option>
+        <option value="png">Static</option>
+        <option value="gif">Animated</option>
+      </select>
+    </div>
+
+    <div class="images-search__category">
+      <span>Category</span>
+      <select class="form-select" id="category" (change)="userEventsListener($event)">
+        <option [value]="-1">None</option>
+        <option [value]="catCategory.id" *ngFor="let catCategory of getCatsCategories">
+          {{catCategory.name}}
+        </option>
+      </select>
+    </div>
+
+    <div class="images-search__breeds">
+      <span>Breed</span>
+      <select class="form-select" id="breeds" (change)="userEventsListener($event)">
+        <option [value]="-1">None</option>
+        <option [value]="catBreed.id" *ngFor="let catBreed of getCatsBreedsNameList">
+          {{catBreed.name}}
+        </option>
+      </select>
+    </div>
+
+  </div>
+
+  <div class="images-search__wrapper">
+    <div class="images-search__images-container" *ngFor="let defaultCatImage of getDefaultCatsImages">
+      <div class="images-search__grid-cell">
+        <img class="images-search__img" [src]="defaultCatImage.url" alt="">
+      </div>
+    </div>
+  </div>
+
+<div class="images-search__footer">
+  <div class="images-search__limit">
+    <span>Per Page</span>
+    <select class="form-select" id="limit" (change)="userEventsListener($event)">
+      <option value="6">6</option>
+      <option value="9">9</option>
+      <option value="18">18</option>
+    </select>
+  </div>
+
+  <div class="images-search__btn-block">
+    <button
+    (click)="loadMoreImages($event)"
+    type="button" class="images-search__btn">
+      <svg-icon
+      class="images-search__svg"
+      src="../../../assets/img/refresh.svg" [svgStyle]="{'width.px': 24}"></svg-icon>
+      MORE
+    </button>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,55 @@
+<div class="breeds__body">
+
+  <div class="breeds__breeds-select">
+    <p>Breeds</p>
+    <div class="breeds__select form-select">
+      <select class="form-select" (change)="getCatBreedImagesById($event)">
+        <option [value]="cat.id" *ngFor="let cat of catBreeds">
+          {{cat.name}}</option>
+      </select>
+    </div>
+
+    <div *ngIf="catBreedImages.length !== 0" class="breeds__main-container">
+      <div class="">
+        <carousel class="breeds__carouser-text-center">
+          <div *ngFor="let catImage of catBreedImages" class="text-center">
+            <slide>
+              <img [src]="catImage.url" [alt]="catImage.id" class="breeds__img-main"
+                style="display: block; width: 100%;">
+            </slide>
+          </div>
+        </carousel>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="breeds__cat-info" *ngFor="let catInfo of catBreed">
+    <div class="breeds__name">{{catInfo.name}}</div>
+    <div class="breeds__descr">{{catInfo.description}}</div>
+    <p class="breeds__line"> ---- </p>
+    <div class="breeds__temperament">{{catInfo.temperament}}</div>
+
+    <div class="breeds__rating-block">
+      <app-rating-custom theNatureOfCatBreed="Affection Level" [rate]="catInfo.affection_level"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Adaptability" [rate]="catInfo.adaptability"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Child Friendly" [rate]="catInfo.child_friendly"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Dog Friendly" [rate]="catInfo.dog_friendly"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Energy Level" [rate]="catInfo.energy_level"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Grooming" [rate]="catInfo.grooming"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Health Issues" [rate]="catInfo.health_issues"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Intelligence" [rate]="catInfo.intelligence"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Shedding Level" [rate]="catInfo.shedding_level"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Social Needs" [rate]="catInfo.social_needs"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Stranger Friendly" [rate]="catInfo.stranger_friendly"></app-rating-custom>
+      <app-rating-custom theNatureOfCatBreed="Vocalisation" [rate]="catInfo.vocalisation"></app-rating-custom>
+    </div>
+
+    <button class="btn btn-warning">
+      <a [href]="catInfo.wikipedia_url">WIKIPEDIA</a>
+    </button>
+
+  </div>
+
+
+</div>

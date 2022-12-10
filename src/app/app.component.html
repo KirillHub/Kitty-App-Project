@@ -1,0 +1,29 @@
+<div class="app container">
+  <h1 class="app__title">{{title | titlecase}}
+    <span class="app__title-svg">
+      <svg-icon src="../assets/img/cat.svg" [svgStyle]="{'width.px': 50}"></svg-icon>
+    </span>
+  </h1>
+
+  <header class="header">
+    <nav class="header__navbar">
+      <ul class="header__links">
+        <li class="header__vote">
+          <a [routerLink]="['/']">VOTE</a>
+        </li>
+        <li>
+          <a [routerLink]="['/breeds']">BREEDS</a>
+        </li>
+        <li>
+          <a [routerLink]="['/images-search']">IMAGES/SEARCH</a>
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <app-error-data></app-error-data>
+
+  <router-outlet></router-outlet>
+
+</div>

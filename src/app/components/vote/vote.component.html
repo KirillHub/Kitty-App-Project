@@ -1,0 +1,26 @@
+<div class="vote__main">
+  <div class="vote__body">
+    <div class="vote__btns-block">
+      <div class="vote__btn-favorite-block">
+        <button type="button" [value]="catImage.id" class="vote__btn-favorite" (click)="buttonVoteEvent($event)"
+          (click)="nextCatImage()">
+          <svg-icon src="../assets/img/favorite.svg" [svgStyle]="{'width.px':30}"></svg-icon>
+          <p>{{buttonLoveIt | uppercase}}</p>
+        </button>
+      </div>
+      <div class="vote__btn-unlike-block">
+        <button class="vote__btn-unlike" (click)="buttonVoteEvent($event)" [value]="catImage.id"
+        (click)="nextCatImage()">
+
+          <svg-icon src="../assets/img/unlike.svg" [svgStyle]="{'width.px':30}"></svg-icon>
+
+          <p>{{buttonNopeIt | uppercase}}</p>
+        </button>
+      </div>
+    </div>
+
+    <div class="vote__cat-img">
+      <img class="vote__cat-image" [src]="catImage.url" alt="cat">
+    </div>
+  </div>
+</div>

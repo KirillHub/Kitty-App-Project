@@ -1,0 +1,45 @@
+
+.vote {
+  &__main{
+    padding: 30px 15px;
+  }
+  &__btns-block{
+    width: 350px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__btn-favorite-block{
+    margin-bottom: 40px;
+  }
+
+  &__btn-favorite, &__btn-unlike {
+    display: flex;
+    align-items: center;
+    padding: 7px 10px;
+    border-radius: 7px;
+    min-width: 125px;
+    P {
+      margin: 3px 0 0 10px;
+      font-weight: 600;
+    }
+  }
+
+  &__btn-favorite{
+    background-color: rgba(0, 128, 0, 0.548);
+  }
+  &__btn-unlike{
+    background-color: rgba(255, 0, 0, 0.548);
+  }
+
+  &__cat-image{
+    margin: 0 auto;
+    max-height: 50vh;
+    img{
+      object-fit: cover;
+      max-width: 100%;
+      max-height: 250px;
+    }
+  }
+}
