@@ -1,0 +1,43 @@
+
+.vote {
+  &__btns-block{
+    width: 350px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+  }
+
+  &__btn-favorite-block,  &__btn-unlike-block{
+    position: relative;
+  }
+  &__btn-favorite-block{
+    margin-bottom: 40px;
+  }
+  &__btn-favorite-svg,  &__btn-unlike-svg{
+    position: absolute;
+    top: 12px;
+    left: 17px;
+    z-index: 100;
+  }
+  &__btn-favorite, &__btn-unlike {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 7px;
+    min-width: 10rem;
+    P {
+      margin: 0 auto;
+      margin-right: 0.7rem;
+      font-size: 1.2rem;
+      padding: 1.2rem 0.5rem;
+      font-weight: 700;
+    }
+  }
+
+  &__btn-favorite{
+    background-color: rgba(0, 128, 0, 0.548);
+  }
+  &__btn-unlike{
+    background-color: rgba(255, 0, 0, 0.548);
+  }
+}

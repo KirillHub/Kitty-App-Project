@@ -1,4 +1,4 @@
-import { TCat, TCatImage } from './../../models/cats';
+import { TCat, TCatImage } from '../models/cats';
 import { Injectable } from '@angular/core'
 import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from "@angular/common/http"
 import { ErrorService } from './error.service'
@@ -14,7 +14,7 @@ import { TCatsCategories } from 'src/app/models/catsCategories';
 export class CatsService {
 
   RANDOM_CAT_IMAGE_KEY = 'https://api.thecatapi.com/v1/images/search';
-  x_api_key = 'live_unXmyThZGuboII0sdJh0w2xbwknOC7YRCYXEsHiWP3GvdphtzBFnvRYW8AAUlUds';
+  X_API_KEY = 'live_unXmyThZGuboII0sdJh0w2xbwknOC7YRCYXEsHiWP3GvdphtzBFnvRYW8AAUlUds';
   httpPostUserVote = 'https://api.thecatapi.com/v1/votes';
   httpBreedsList = 'https://api.thecatapi.com/v1/breeds';
   httpCatsCategories = 'https://api.thecatapi.com/v1/categories/';
@@ -22,7 +22,7 @@ export class CatsService {
   breedName = '';
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
-    'x-api-key': `${this.x_api_key}`
+    'x-api-key': `${this.X_API_KEY}`
   });
 
   constructor(
@@ -30,13 +30,15 @@ export class CatsService {
     private errorService: ErrorService
   ) { }
 
+
   getCatRandomImagesForVote(): Observable<TCatImage[]> {
 
-    return this.http.get<TCatImage[]>(this.RANDOM_CAT_IMAGE_KEY,
-      {
-        headers: this.headers,
-        params: new HttpParams().append('limit', 1),
-      })
+    return this.http
+      .get<TCatImage[]>(this.RANDOM_CAT_IMAGE_KEY,
+        {
+          headers: this.headers,
+          params: new HttpParams().append('limit', 1),
+        })
       .pipe(
         catchError(this.errorHandler.bind(this))
       )

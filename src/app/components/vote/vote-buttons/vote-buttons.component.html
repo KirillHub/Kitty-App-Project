@@ -1,0 +1,21 @@
+<div class="vote__btn-favorite-block">
+  <span class="vote__btn-favorite-svg">
+    <svg-icon src="../assets/img/favorite.svg"
+    [svgStyle]="{'width.px':25}"></svg-icon>
+  </span>
+  <button type="button" (click)="buttonVoteEvent($event)"
+  [value]="catImageId" class="vote__btn-favorite">
+    <p>{{buttonLoveIt | uppercase}}</p>
+  </button>
+</div>
+
+<div class="vote__btn-unlike-block">
+  <span class="vote__btn-unlike-svg">
+    <svg-icon src="../assets/img/unlike.svg"
+    [svgStyle]="{'width.px':25}"></svg-icon>
+  </span>
+  <button class="vote__btn-unlike" (click)="buttonVoteEvent($event)"
+  [value]="catImageId">
+    <p>{{buttonNopeIt | uppercase}}</p>
+  </button>
+</div>

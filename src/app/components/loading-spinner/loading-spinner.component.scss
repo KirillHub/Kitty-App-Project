@@ -1,0 +1,22 @@
+
+.loading-spinner {
+  position: fixed;
+  width: 20vw;
+  left: 40vw;
+  top: 30%;
+  z-index: 99;
+  text-align: center;
+  padding: 20px;
+}
+
+.backdrop {
+  position: fixed;
+  width: 30vw;
+  left: 40vw;
+  top: 30%;
+  width: 20%;
+  height: 15vw;
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 15% 55%;
+  z-index: 98;
+}

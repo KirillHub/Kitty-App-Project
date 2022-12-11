@@ -1,17 +1,3 @@
 <div class="vote">
-
-  <p *ngIf="loading">
-    <svg-icon [stretch]="true" src="../../../assets/img/spinner-loading.svg" class="_svg"
-      [svgStyle]="{'width.px': 250}"></svg-icon>
-  </p>
-
-  <app-vote *ngFor="let catImg of catImage$ | async"
-  [catImage]="catImg" (outEnterName)="nextCatImage($event)">
-  </app-vote>
-
-  <div [ngStyle]="{'font-size':'20px'}">
-    <span [ngStyle]="{'color': 'red', 'font-size': '30px'}"
-    *ngFor="let cat of catImage$ | async">
-    </span>
-
-  </div>
+  <app-vote></app-vote>
+</div>

@@ -1,28 +1,44 @@
-import { CatsService } from '../../../components/services/cats.service';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Injectable } from "@angular/core";
-import { EMPTY, of } from 'rxjs';
+import { throwError } from 'rxjs';
 import { map, mergeMap, catchError } from 'rxjs';
-
+import { loadImage, loadImageSuccess } from './vote-page.actions';
+import { CatsService } from 'src/app/services/cats.service';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { selectCatImage } from './vote-page.selectors';
+import { setLoadingSpinner } from 'src/app/store/Shared/shared.actions';
+import { HttpErrorResponse } from '@angular/common/http';
+import { ErrorService } from 'src/app/services/error.service';
 
 @Injectable()
 
-export class CatRandomImageEffect {
-	constructor(
-		private actions$: Actions,
-		private catsServise: CatsService) { }
+export class VoteEffects {
+  constructor(
+    private actions$: Actions,
+    private postService: CatsService,
+    private store: Store<AppState>,
+    private errorService: ErrorService
+  ) { }
 
-	loadRamdonCatImage$ = createEffect(() => this.actions$.pipe(
-		ofType('[Cat Random Image] Load Cat Random Image'),
-		mergeMap(() => this.catsServise.getCatRandomImagesForVote()
-			.pipe(
-				map(catImg => ({
-					type: '[Cats API] Cat Random Image Loaded Success',
-					payload: catImg
-				})),
-				catchError(() => of({ type: '[Cats API] Cat Image Loaded Error' }))
-			))
-	), { dispatch: false }
-	);
+  loadImage$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(loadImage),
+      mergeMap(action =>
+        this.postService.getCatRandomImagesForVote().pipe(
+          map((data) => {
+            this.store.dispatch(setLoadingSpinner({ status: false }));
+            return loadImageSuccess({ catImage: data })
+          }),
+          catchError((error: HttpErrorResponse) => {
+            this.store.dispatch(setLoadingSpinner({ status: false }));
+            this.errorService.handle(error.message)
+            return throwError(() => error.message)
+          })
+        )
+      )
+    )
+  })
 
 }
+

@@ -15,35 +15,31 @@ import { reducers, metaReducers } from './reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
 import { VotePageModule } from './pages/vote-page/vote-page.module';
-// import { catRandomImageFeature, RANDOM_IMAGE_KEY, _counterReducer } from './reducers/catImage.reducer';
+import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
+import { appReducer } from './store/app.reducer';
+
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		GlobalErrorComponent,
-		// DemoRatingCustomComponent,
-	],
-	imports: [
-		//ngx-bootstrap
-    //!!!
-		// CarouselModule.forRoot(),
-		// RatingModule.forRoot(),
+  declarations: [
+    AppComponent,
+    GlobalErrorComponent,
+    LoadingSpinnerComponent,
 
-		BrowserModule,
-		AppRoutingModule,
-		HttpClientModule,
-		FormsModule,
-		AngularSvgIconModule.forRoot(),
-		// StoreModule.forFeature(catRandomImageFeature),
-		StoreModule.forRoot({ }),  // сюда добавлять новые редюсеры
-		StoreModule.forRoot(reducers, {
-			metaReducers
-		}),
-		StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
-		// EffectsModule.forRoot([CatRandomImageEffect]), // в дальшейшем эффекты переместить
-		// EffectsModule.forFeature([CatRandomImageEffect])
-	],
-	providers: [],
-	bootstrap: [AppComponent]
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    AngularSvgIconModule.forRoot(),
+    HttpClientModule,
+    StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, logOnly: !isDevMode()
+    }),
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -9,7 +9,7 @@
     <nav class="header__navbar">
       <ul class="header__links">
         <li class="header__vote">
-          <a [routerLink]="['/']">VOTE</a>
+          <a [routerLink]="['/vote']">VOTE</a>
         </li>
         <li>
           <a [routerLink]="['/breeds']">BREEDS</a>
@@ -21,7 +21,8 @@
     </nav>
   </header>
 
-
+  <app-loading-spinner
+  *ngIf="showLoading$ | async"></app-loading-spinner>
   <app-error-data></app-error-data>
 
   <router-outlet></router-outlet>

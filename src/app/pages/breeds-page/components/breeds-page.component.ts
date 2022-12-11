@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { tap, map } from 'rxjs';
-import { CatsService } from 'src/app/components/services/cats.service';
+import { CatsService } from 'src/app/services/cats.service';
 import { TCat } from 'src/app/models/cats';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { setLoadingSpinner } from 'src/app/store/Shared/shared.actions';
 
 @Component({
   selector: 'app-breeds-page',
@@ -13,14 +15,15 @@ export class BreedsPageComponent implements OnInit {
   loading = false;
   catBreedsAllData: TCat[] = [];
 
-  constructor(private catsService: CatsService) { }
+  constructor(
+    private catsService: CatsService,
+    private store: Store<AppState>
+  ) { }
 
   ngOnInit(): void {
-    this.loading = true;
+    // this.store.dispatch(setLoadingSpinner({ status: true }))
 
-    this.catsService.getCatBreeds().pipe(
-      tap(() => this.loading = false)
-    )
+    this.catsService.getCatBreeds()
       .subscribe(catBreeds => this.catBreedsAllData = catBreeds)
   };
 

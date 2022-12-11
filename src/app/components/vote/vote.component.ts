@@ -1,6 +1,11 @@
 import { TCatImage } from '../../models/cats';
-import { Component, Input, Output, OnInit, EventEmitter } from '@angular/core';
-import { CatsService } from '../services/cats.service';
+import { Component, Output, OnInit, EventEmitter } from '@angular/core';
+import { CatsService } from '../../services/cats.service';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { selectCatImage } from 'src/app/pages/vote-page/state/vote-page.selectors';
+import { loadImage } from 'src/app/pages/vote-page/state/vote-page.actions';
+import { AppState } from 'src/app/store/app.state';
 
 @Component({
   selector: 'app-vote',
@@ -8,36 +13,24 @@ import { CatsService } from '../services/cats.service';
   styleUrls: ['./vote.component.scss']
 })
 
-export class VoteComponent {
-  @Input() catImage!: TCatImage; //get an array of one object with a picture of a cat
+export class VoteComponent implements OnInit {
+  catImage$?: Observable<TCatImage[]>;
+
   @Output() outEnterName = new EventEmitter<boolean>()
 
   catsRandomImageId = '';
   buttonLoveIt = 'love it';
   buttonNopeIt = 'nope it';
   buttonEventHandle = true;
+  loading = false;
 
-  constructor(private catsService: CatsService) { }
+  spinner$ = false;
 
-  buttonVoteEvent(event: MouseEvent) {
-    const target = event.currentTarget as HTMLButtonElement;
-    target ? this.catsRandomImageId = target.value : target;
+  constructor(private store: Store<AppState>) { }
 
-    this.catsRandomImageId = target.value;
-
-    switch (target.textContent) {
-      case this.buttonLoveIt.toUpperCase():
-        this.catsService.voteUp(this.catsRandomImageId).subscribe();
-        break;
-      case this.buttonNopeIt.toUpperCase():
-        this.catsService.voteDown(this.catsRandomImageId).subscribe();
-        break;
-    }
-  };
-
-  nextCatImage() {
-    return this.outEnterName.emit(this.buttonEventHandle)
+  ngOnInit(): void {
+    this.catImage$ = this.store.select(selectCatImage);
+    this.store.dispatch(loadImage());
   };
 
 }
-

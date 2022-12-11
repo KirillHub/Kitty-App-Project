@@ -2,7 +2,7 @@ import { Subject } from 'rxjs';
 import { Observable, Subscription } from 'rxjs';
 import { TCat, TCatImage } from '../../../models/cats';
 import { Component, OnInit } from '@angular/core';
-import { CatsService } from 'src/app/components/services/cats.service';
+import { CatsService } from 'src/app/services/cats.service';
 import { tap } from 'rxjs';
 import TUserSettingsParam from 'src/app/models/userSettingsParam';
 import { TCatsCategories } from 'src/app/models/catsCategories';

@@ -1,11 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { VotePageComponent } from './pages/vote-page/components/vote-page.component';
 
 const routes: Routes = [
 
+  //** implement homePage */
+
   {
-    path: '', component: VotePageComponent
+    path: 'vote',
+    loadChildren: () => import('./pages/vote-page/vote-page.module')
+      .then(module => module.VotePageModule)
   },
   {
     path: 'breeds',
@@ -17,6 +20,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/images-search-page/images-search-page.module').
       then(module => module.ImagesSearchPageModule)
   },
+
 ];
 
 @NgModule({
