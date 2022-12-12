@@ -17,29 +17,42 @@ import { EffectsModule } from '@ngrx/effects';
 import { VotePageModule } from './pages/vote-page/vote-page.module';
 import { LoadingSpinnerComponent } from './components/loading-spinner/loading-spinner.component';
 import { appReducer } from './store/app.reducer';
+import { EntityDataModule, EntityDataService } from '@ngrx/data';
+import { entityConfig } from './entity-metadata';
+import { CatBreedsDataService } from './services/cat-breeds-data.service';
+import { CatBreedsResolver } from './app.resolver';
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    GlobalErrorComponent,
-    LoadingSpinnerComponent,
-
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    HttpClientModule,
-    FormsModule,
-    AngularSvgIconModule.forRoot(),
-    HttpClientModule,
-    StoreModule.forRoot(appReducer),
-    EffectsModule.forRoot([]),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25, logOnly: !isDevMode()
-    }),
-  ],
-  providers: [],
-  bootstrap: [AppComponent]
+	declarations: [
+		AppComponent,
+		GlobalErrorComponent,
+		LoadingSpinnerComponent,
+	],
+	imports: [
+		BrowserModule,
+		AppRoutingModule,
+		HttpClientModule,
+		FormsModule,
+		AngularSvgIconModule.forRoot(),
+		HttpClientModule,
+		StoreModule.forRoot(appReducer),
+		EffectsModule.forRoot([]),
+		StoreDevtoolsModule.instrument({
+			maxAge: 25, logOnly: !isDevMode()
+		}),
+		EntityDataModule.forRoot(entityConfig),
+	],
+	exports: [],
+	providers: [CatBreedsDataService, CatBreedsResolver],
+	bootstrap: [AppComponent]
 })
-export class AppModule { }
+
+export class AppModule {
+	constructor(
+		entityDateService: EntityDataService,
+		catBreedsDataService: CatBreedsDataService
+	) {
+		entityDateService.registerService('CatBreeds', catBreedsDataService)
+	}
+}

@@ -32,7 +32,7 @@
       <span>Breed</span>
       <select class="form-select" id="breeds" (change)="userEventsListener($event)">
         <option [value]="-1">None</option>
-        <option [value]="catBreed.id" *ngFor="let catBreed of getCatsBreedsNameList">
+        <option [value]="catBreed.id" *ngFor="let catBreed of getCatsBreeds$ | async">
           {{catBreed.name}}
         </option>
       </select>

@@ -4,24 +4,33 @@
     <p>Breeds</p>
     <div class="breeds__select form-select">
       <select class="form-select" (change)="getCatBreedImagesById($event)">
-        <option [value]="cat.id" *ngFor="let cat of catBreeds">
+        <option [value]="cat.id" *ngFor="let cat of catBreeds$ | async">
           {{cat.name}}</option>
       </select>
     </div>
 
-    <div *ngIf="catBreedImages.length !== 0" class="breeds__main-container">
-      <div class="">
+    <div class="breeds__main-container">
+      <div>
         <carousel class="breeds__carouser-text-center">
-          <div *ngFor="let catImage of catBreedImages" class="text-center">
-            <slide>
-              <img [src]="catImage.url" [alt]="catImage.id" class="breeds__img-main"
-                style="display: block; width: 100%;">
-            </slide>
+          <!-- <div *ngIf="catBreedImage.length === 0">
+            <div *ngFor="let catImage of getCatImageByBreed$ | async" class="text-center">
+              <slide>
+                <img [src]="catImage.url" [alt]="catImage.id" class="breeds__img-main"
+                  style="display: block; width: 100%;">
+              </slide>
+            </div>
+          </div> -->
+          <div >
+            <div *ngFor="let catImage of catBreedImage" class="text-center">
+              <slide>
+                <img [src]="catImage.url" [alt]="catImage.id" class="breeds__img-main"
+                  style="display: block; width: 100%;">
+              </slide>
+            </div>
           </div>
         </carousel>
       </div>
     </div>
-
   </div>
 
   <div class="breeds__cat-info" *ngFor="let catInfo of catBreed">
@@ -48,8 +57,6 @@
     <button class="btn btn-warning">
       <a [href]="catInfo.wikipedia_url">WIKIPEDIA</a>
     </button>
-
   </div>
-
 
 </div>

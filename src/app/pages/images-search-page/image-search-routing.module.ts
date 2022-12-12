@@ -1,12 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
-import { VotePageComponent } from "./components/vote-page.component";
+import { ImagesSearchPageComponent } from "./components/images-search-page.component";
 
 
 const routes: Routes = [
   {
-    path: '',
-    component: VotePageComponent
+    path: '', component: ImagesSearchPageComponent
   }
 ];
 
@@ -15,6 +14,6 @@ const routes: Routes = [
   exports: [RouterModule]
 })
 
-export class VoteRoutingModule { }
+export class ImageSearchRoutingModule { }
 
 

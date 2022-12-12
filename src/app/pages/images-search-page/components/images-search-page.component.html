@@ -1,13 +1,6 @@
 <div class="images-search">
 
-  <p *ngIf="loading">
-    <svg-icon src="../../../assets/img/spinner-loading.svg" [svgStyle]="{'width.px': 250}"></svg-icon>
-  </p>
-
-  <app-images-search [getDefaultCatsImages]="catsImagesByDefaultSettings"
-  [getCatsCategories]="catsCategories"
-  [getCatsBreedsNameList]="catsBreedsNameList"
-  [getDefaultUserSettingsParam]="defaultUserSettingsParam">
+  <app-images-search [getCatsCategories]="catsCategories">
   </app-images-search>
 
 </div>

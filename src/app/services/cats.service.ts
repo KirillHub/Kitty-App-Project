@@ -15,10 +15,10 @@ export class CatsService {
 
   RANDOM_CAT_IMAGE_KEY = 'https://api.thecatapi.com/v1/images/search';
   X_API_KEY = 'live_unXmyThZGuboII0sdJh0w2xbwknOC7YRCYXEsHiWP3GvdphtzBFnvRYW8AAUlUds';
-  httpPostUserVote = 'https://api.thecatapi.com/v1/votes';
-  httpBreedsList = 'https://api.thecatapi.com/v1/breeds';
-  httpCatsCategories = 'https://api.thecatapi.com/v1/categories/';
-  sub_id = "User-322";
+  POST_USER_VOTE = `https://api.thecatapi.com/v1/votes`;
+  CAT_BREEDS = `https://api.thecatapi.com/v1/breeds`
+  CATS_CATEGORIES = `https://api.thecatapi.com/v1/categories/`
+  SUB_ID = 'User-322';
   breedName = '';
   headers = new HttpHeaders({
     'Content-Type': 'application/json',
@@ -27,7 +27,7 @@ export class CatsService {
 
   constructor(
     private http: HttpClient,
-    private errorService: ErrorService
+    private errorService: ErrorService,
   ) { }
 
 
@@ -47,11 +47,11 @@ export class CatsService {
   voteUp(_catsRandomImageId: string): Observable<TBodyPostResponse> {
     let body: TBodyPostResponse = {
       image_id: _catsRandomImageId,
-      sub_id: this.sub_id,
+      sub_id: this.SUB_ID,
       value: 1
     };
 
-    return this.http.post<TBodyPostResponse>(this.httpPostUserVote, body, {
+    return this.http.post<TBodyPostResponse>(this.POST_USER_VOTE, body, {
       headers: this.headers,
     })
       .pipe(
@@ -62,35 +62,13 @@ export class CatsService {
   voteDown(_catsRandomImageId: string): Observable<TBodyPostResponse> {
     let body: TBodyPostResponse = {
       image_id: _catsRandomImageId,
-      sub_id: this.sub_id,
+      sub_id: this.SUB_ID,
       value: -1
     };
 
-    return this.http.post<TBodyPostResponse>(this.httpPostUserVote, body, {
+    return this.http.post<TBodyPostResponse>(this.POST_USER_VOTE, body, {
       headers: this.headers,
     })
-      .pipe(
-        catchError(this.errorHandler.bind(this))
-      )
-  };
-
-  getCatBreeds(): Observable<TCat[]> {
-    return this.http.get<TCat[]>(this.httpBreedsList,
-      {
-        headers: this.headers
-      })
-      .pipe(
-        catchError(this.errorHandler.bind(this))
-      )
-  };
-
-  getCatBreedImages(breedID: string, amount: number): Observable<TCatImage[]> {
-    let httpGetBreedById = `https://api.thecatapi.com/v1/images/search?breed_ids=${breedID}`
-    return this.http.get<TCatImage[]>(httpGetBreedById,
-      {
-        headers: this.headers,
-        params: new HttpParams().append('limit', amount)
-      })
       .pipe(
         catchError(this.errorHandler.bind(this))
       )
@@ -117,7 +95,7 @@ export class CatsService {
 
   getCatsCategories(): Observable<TCatsCategories[]> {
 
-    return this.http.get<TCatsCategories[]>(this.httpCatsCategories,
+    return this.http.get<TCatsCategories[]>(this.CATS_CATEGORIES,
       {
         headers: this.headers,
       })

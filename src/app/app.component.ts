@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
   title = 'kitty app';
   showLoading$!: Observable<boolean>
 
-  constructor(private store: Store<AppState>){}
+  constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
     this.showLoading$ = this.store.select(getLoading)

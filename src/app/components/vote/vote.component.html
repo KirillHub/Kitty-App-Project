@@ -1,11 +1,5 @@
 <div *ngIf="catImage$ | async as catData">
 
-  <div *ngIf="loading">
-    <svg-icon [stretch]="true" src="../../../assets/img/spinner-loading.svg" class="_svg"
-      [svgStyle]="{'width.px': 250}">
-    </svg-icon>
-  </div>
-
   <div *ngFor="let catImage of catData">
     <div class="vote__main">
       <div class="vote__body">

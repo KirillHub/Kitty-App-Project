@@ -10,6 +10,6 @@ export const sharedReducer = createReducer(
       showLoading: action.status,
     };
   }),
-
+  
 );
 

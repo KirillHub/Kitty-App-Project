@@ -1,41 +1,58 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, Subscription } from 'rxjs';
+import { CatBreedsService } from 'src/app/services/cat-breeds.service';
 import { TCat, TCatImage } from 'src/app/models/cats';
-import { CatsService } from '../../services/cats.service';
 
 @Component({
 	selector: 'app-breeds',
 	templateUrl: './breeds.component.html',
 	styleUrls: ['./breeds.component.scss']
 })
-export class BreedsComponent implements OnInit {
+export class BreedsComponent implements OnInit, OnDestroy {
 
-	@Input() catBreeds?: TCat[] = [];
-	@Input() catBreedImages: TCatImage[] = [];
-	@Input() catBreed: TCat[] = [];
+	catBreeds$?: Observable<TCat[]>;
+	subscriptions?: Subscription[] = [];
+	getCatImageByBreed$?: Observable<TCatImage[]>;
+	catBreedImage?: TCatImage[];
+	catBreed: TCat[] = [];
+	catBreeds: TCat[] = [];
 
-	constructor(private catsService: CatsService) { }
+	constructor(private catBreedsService: CatBreedsService) { }
 
-	getCatBreedImagesById(event: Event) {  //! получаем ссылки на картинки
+	getCatBreedImagesById(event: Event) {
 		let selectedCatBreedId = (event.target as HTMLSelectElement).value;
 
-		this.catsService.getCatBreedImages(selectedCatBreedId, 5).subscribe(
-			catBreed => this.catBreedImages = catBreed
-		)
+		this.catBreeds.filter(catImageById => {
+			if (catImageById.id === selectedCatBreedId) {
+				this.catBreedImage = [catImageById.image]
+			}
+		});
 
 		if (this.catBreed.length !== 0) this.catBreed = [];
 
 		this.catBreeds?.filter(selectedCatBreed =>
-			selectedCatBreed.id === selectedCatBreedId ? this.catBreed.push(selectedCatBreed) : false
-		)
+			selectedCatBreed.id === selectedCatBreedId ?
+				this.catBreed.push(selectedCatBreed) : false
+		);
+
 	};
 
 	ngOnInit(): void {
-		this.catsService.getCatBreedImages('abys', 5).subscribe(
-			catBreed => {
-				this.catBreedImages = catBreed;
-				this.catBreed = this.catBreedImages[0].breeds;
-			}
+		this.catBreeds$ = this.catBreedsService.entities$;
+
+		this.subscriptions?.push(
+			this.catBreeds$.subscribe(
+				initialCatBreed => {
+					this.catBreed = [initialCatBreed[0]]
+					this.catBreedImage = [initialCatBreed[0].image]
+					this.catBreeds = initialCatBreed
+				}
+			)
 		)
+	};
+
+	ngOnDestroy(): void {
+		this.subscriptions?.forEach(s => s.unsubscribe())
 	};
 
 }

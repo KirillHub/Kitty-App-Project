@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Subscription } from 'rxjs';
 import { loadImage } from 'src/app/pages/vote-page/state/vote-page.actions';
 import { CatsService } from 'src/app/services/cats.service';
 import { AppState } from 'src/app/store/app.state';
@@ -11,13 +12,13 @@ import { setLoadingSpinner } from 'src/app/store/Shared/shared.actions';
   styleUrls: ['./vote-buttons.component.scss']
 })
 
-export class VoteButtonsComponent {
-
+export class VoteButtonsComponent implements OnDestroy {
   @Input() catImageId?: string;
 
   catsRandomImageId = '';
   buttonLoveIt = 'love it';
   buttonNopeIt = 'nope it';
+  subscriptions?: Subscription[] = [];
 
   constructor(
     private store: Store<AppState>,
@@ -31,15 +32,16 @@ export class VoteButtonsComponent {
     this.catsRandomImageId = target.value;
 
     switch (target.textContent) {
-
       case this.buttonLoveIt.toUpperCase().trim():
-
-        console.log('we here voteUp');
-        this.catsService.voteUp(this.catsRandomImageId).subscribe();
+        this.subscriptions?.push(
+          this.catsService.voteUp(this.catsRandomImageId).subscribe()
+        );
         break;
+
       case this.buttonNopeIt.toUpperCase().trim():
-        console.log('we here voteDown');
-        this.catsService.voteDown(this.catsRandomImageId).subscribe();
+        this.subscriptions?.push(
+          this.catsService.voteDown(this.catsRandomImageId).subscribe()
+        );
         break;
     };
 
@@ -47,9 +49,8 @@ export class VoteButtonsComponent {
     this.store.dispatch(setLoadingSpinner({ status: true }));
   };
 
-  nextCatImage() {
-    this.store.dispatch(loadImage());
+  ngOnDestroy(): void {
+    this.subscriptions?.forEach(s => s.unsubscribe())
   };
-
 
 }

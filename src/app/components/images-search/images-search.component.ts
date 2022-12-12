@@ -4,76 +4,91 @@ import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import TUserSettingsParam from 'src/app/models/userSettingsParam';
 import { CatsService } from '../../services/cats.service';
 import { TCatsCategories } from 'src/app/models/catsCategories';
+import { CatBreedsService } from 'src/app/services/cat-breeds.service';
+import { AppState } from 'src/app/store/app.state';
+import { Store } from '@ngrx/store';
+import { selectDefaulfSearchSettings } from 'src/app/pages/images-search-page/state/images-search-page.selectors';
 
 @Component({
-	selector: 'app-images-search',
-	templateUrl: './images-search.component.html',
-	styleUrls: ['./images-search.component.scss']
+  selector: 'app-images-search',
+  templateUrl: './images-search.component.html',
+  styleUrls: ['./images-search.component.scss']
 })
 
 export class ImagesSearchComponent implements OnInit, OnDestroy {
 
-	@Input() getDefaultCatsImages: TCatImage[] = [];
-	@Input() getCatsCategories: TCatsCategories[] = [];
-	@Input() getCatsBreedsNameList: TCat[] = [];
-	@Input() getDefaultUserSettingsParam!: TUserSettingsParam;
+  getDefaultCatsImages: TCatImage[] = [];
+  @Input() getCatsCategories: TCatsCategories[] = [];
+  getCatsBreeds$?: Observable<TCat[]>;
+  defaultUserSettingsParam!: TUserSettingsParam;
 
-	currentUserSettings!: TUserSettingsParam;
-	uploadedСurrentСatImages!: TCatImage[];
+  currentUserSettings!: TUserSettingsParam;
+  uploadedСurrentСatImages!: TCatImage[];
 
-	constructor(private catsService: CatsService) { }
+  constructor(
+    private catsService: CatsService,
+    private catBreedsService: CatBreedsService,
+    private store: Store<AppState>
+  ) { }
 
-	cats$ = new Subject();
-	subscriptions: Subscription[] = [];
+  cats$ = new Subject();
+  subscriptions: Subscription[] = [];
 
 
 
-	userEventsListener(event: Event) {
-		let userSettingEvent = (event.target as HTMLSelectElement)
+  userEventsListener(event: Event) {
+    let userSettingEvent = (event.target as HTMLSelectElement)
 
-		switch (userSettingEvent.id) {
-			case 'type':
-				this.currentUserSettings.mime_types = userSettingEvent.value;
-				break;
-			case 'category':
-				this.currentUserSettings.category_ids = +userSettingEvent.value
-				break;
-			case 'breeds':
-				this.currentUserSettings.breeds_ids = userSettingEvent.value;
-				break;
-			case 'limit':
-				this.currentUserSettings.limit = +userSettingEvent.value
-				break;
-		}
+    switch (userSettingEvent.id) {
+      case 'type':
+        this.currentUserSettings.mime_types = userSettingEvent.value;
+        break;
+      case 'category':
+        this.currentUserSettings.category_ids = +userSettingEvent.value
+        break;
+      case 'breeds':
+        this.currentUserSettings.breeds_ids = userSettingEvent.value;
+        break;
+      case 'limit':
+        this.currentUserSettings.limit = +userSettingEvent.value
+        break;
+    };
 
-		this.getNewImagesByUserSettings(this.currentUserSettings);
+    this.getNewImagesByUserSettings(this.currentUserSettings);
+  };
 
-		fromEvent(userSettingEvent, 'click').pipe(
-			takeUntil(this.cats$)
-		).subscribe(a => console.log(a));
-	};
+  loadMoreImages(event: Event) { //! later
+    if (event) {
+      this.getNewImagesByUserSettings(this.currentUserSettings);
+    }
+  };
+  getNewImagesByUserSettings(currentUserSettings: TUserSettingsParam) { //! later
+    this.catsService.getCatsImagesByUserSettings(currentUserSettings).subscribe(
+      catsImages => this.getDefaultCatsImages = catsImages
+    )
+  };
 
-	loadMoreImages(event: Event) {
-		if (event) {
-			this.getNewImagesByUserSettings(this.currentUserSettings);
-		}
-	}
 
-	getNewImagesByUserSettings(currentUserSettings: TUserSettingsParam) {
+  ngOnInit(): void {
 
-		this.catsService.getCatsImagesByUserSettings(currentUserSettings).subscribe(
-			catsImages => this.getDefaultCatsImages = catsImages
-		)
+    this.store.select(selectDefaulfSearchSettings).subscribe(
+      defaultSettings => this.defaultUserSettingsParam = defaultSettings
+    );
 
-	};
+    this.getCatsBreeds$ = this.catBreedsService.entities$
 
-	ngOnInit(): void {
-		this.currentUserSettings = this.getDefaultUserSettingsParam;
-	};
+    this.currentUserSettings = this.defaultUserSettingsParam;
 
-	ngOnDestroy(): void {
-		// this.cats$.
-	}
+
+
+    this.catsService.getCatsImagesByUserSettings(this.defaultUserSettingsParam)
+      .subscribe(catImages => {
+        this.getDefaultCatsImages = catImages
+      });
+
+  };
+
+  ngOnDestroy(): void { }
 
 }
 
