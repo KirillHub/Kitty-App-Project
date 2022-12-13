@@ -17,34 +17,35 @@ import { CatBreedsDataService } from './services/cat-breeds-data.service';
 import { CatBreedsResolver } from './app.resolver';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		GlobalErrorComponent,
-		LoadingSpinnerComponent,
-	],
-	imports: [
-		BrowserModule,
-		AppRoutingModule,
-		HttpClientModule,
-		FormsModule,
-		AngularSvgIconModule.forRoot(),
-		StoreModule.forRoot(appReducer),
-		EffectsModule.forRoot([]),
-		StoreDevtoolsModule.instrument({
-			maxAge: 25, logOnly: !isDevMode()
-		}),
-		EntityDataModule.forRoot(entityConfig),
-	],
-	exports: [],
-	providers: [CatBreedsDataService, CatBreedsResolver],
-	bootstrap: [AppComponent]
+  declarations: [
+    AppComponent,
+    GlobalErrorComponent,
+    LoadingSpinnerComponent,
+
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    AngularSvgIconModule.forRoot(),
+    StoreModule.forRoot(appReducer),
+    EffectsModule.forRoot([]),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, logOnly: !isDevMode()
+    }),
+    EntityDataModule.forRoot(entityConfig),
+  ],
+  exports: [],
+  providers: [CatBreedsDataService, CatBreedsResolver],
+  bootstrap: [AppComponent]
 })
 
 export class AppModule {
-	constructor(
-		entityDateService: EntityDataService,
-		catBreedsDataService: CatBreedsDataService
-	) {
-		entityDateService.registerService('CatBreeds', catBreedsDataService)
-	}
+  constructor(
+    entityDateService: EntityDataService,
+    catBreedsDataService: CatBreedsDataService
+  ) {
+    entityDateService.registerService('CatBreeds', catBreedsDataService)
+  }
 }

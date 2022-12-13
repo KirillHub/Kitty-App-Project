@@ -6,7 +6,6 @@ import { loadImage, loadImageSuccess } from './vote-page.actions';
 import { CatsService } from 'src/app/services/cats.service';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { selectCatImage } from './vote-page.selectors';
 import { setLoadingSpinner } from 'src/app/store/Shared/shared.actions';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ErrorService } from 'src/app/services/error.service';
@@ -24,7 +23,7 @@ export class VoteEffects {
   loadImage$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadImage),
-      mergeMap(action =>
+      mergeMap(() =>
         this.catsService.getCatRandomImagesForVote().pipe(
           map((data) => {
             this.store.dispatch(setLoadingSpinner({ status: false }));

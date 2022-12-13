@@ -1,0 +1,36 @@
+<div class="form-page__main">
+  <div class="form-page__body">
+    <h3 class="form-page__title">Enter breed name</h3>
+    <hr class="form-page__line" />
+    <form class="form-page__form" [formGroup]="userSearchForm"
+    (ngSubmit)="onSearchCatByBreedName()">
+      <div class="form-page__form-body">
+        <label>Search by breed</label>
+        <input type="text" placeholder="Enter breed"
+        class="form-page__form-control" formControlName="catBreedName" />
+        <div *ngIf="
+        userSearchForm.get('catBreedName')?.touched && !userSearchForm.get('catBreedName')?.valid
+          ">
+          <div *ngIf="userSearchForm.get('catBreedName')?.errors?.['required']"
+            [ngStyle]="{'margin-top': '0.5rem', 'color': 'red', 'font-weight': '600'}">
+            Please enter the breed of the cat
+          </div>
+        </div>
+      </div>
+
+      <div class="form-page__footer">
+
+        <button type="submit" class="form-page__btn"
+        [disabled]="!userSearchForm.valid">
+          Search
+        </button>
+
+      </div>
+    </form>
+  </div>
+
+  <div class="form-page__cats">
+    <app-form-search></app-form-search>
+  </div>
+
+</div>

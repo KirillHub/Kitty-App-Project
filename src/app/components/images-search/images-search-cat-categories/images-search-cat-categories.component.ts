@@ -26,7 +26,6 @@ export class ImagesSearchCatCategoriesComponent implements OnInit, OnDestroy {
   getCatsBreeds$?: Observable<TCat[]>
   getCatsCategories$?: Observable<TCatsCategories[]>
   currentUserSettings!: TUserSettingsParam;
-  defaultUserSettingsParam!: TUserSettingsParam;
   subscription?: Subscription;
 
   constructor(
@@ -49,7 +48,9 @@ export class ImagesSearchCatCategoriesComponent implements OnInit, OnDestroy {
         break;
     };
 
-    this.store.dispatch(actualUserSettingForSearchImages({ userSettings: this.currentUserSettings }));
+    this.store.dispatch(actualUserSettingForSearchImages({
+      userSettings: this.currentUserSettings
+    }));
     this.store.dispatch(loadCatImagesAction());
   }
 

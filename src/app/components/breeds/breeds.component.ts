@@ -4,7 +4,11 @@ import { CatBreedsService } from 'src/app/services/cat-breeds.service';
 import { TCat, TCatImage } from 'src/app/models/cats';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { catBreedAction, getCatBreedsId, loadImageByBreed } from 'src/app/pages/breeds-page/state/breeds-page.actions';
+import {
+  catBreedAction,
+  getCatBreedsId,
+  loadImageByBreed
+} from 'src/app/pages/breeds-page/state/breeds-page.actions';
 
 @Component({
   selector: 'app-breeds',

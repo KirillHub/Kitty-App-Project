@@ -1,6 +1,11 @@
-import { TCat, TCatImage } from '../models/cats';
+import { TCatImage } from '../models/cats';
 import { Injectable } from '@angular/core'
-import { HttpClient, HttpErrorResponse, HttpParams, HttpHeaders } from "@angular/common/http"
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpParams,
+  HttpHeaders
+} from "@angular/common/http"
 import { ErrorService } from './error.service'
 import { Observable, throwError, catchError } from "rxjs"
 import { TBodyPostResponse } from 'src/app/models/bodyPostReq';
@@ -29,7 +34,6 @@ export class CatsService {
     private http: HttpClient,
     private errorService: ErrorService,
   ) { }
-
 
   getCatRandomImagesForVote(): Observable<TCatImage[]> {
 

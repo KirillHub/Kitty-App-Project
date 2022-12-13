@@ -14,8 +14,7 @@ export const selectUserSearchSettings = createSelector(
 export const selectCatCategories = createSelector(
   selectFeature,
   state => state.catCategories
-)
-
+);
 
 export const loadingCatImagesSelector = createSelector(
   selectFeature,

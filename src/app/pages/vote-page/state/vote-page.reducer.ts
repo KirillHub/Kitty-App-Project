@@ -5,10 +5,8 @@ import { initialState } from "./vote-page.state";
 
 export const voteReducer = createReducer(
   initialState,
-  on(loadImageSuccess, (state, action) => {
-    return{
-      ...state,
-      catImage: action.catImage
-    }
-  })
+  on(loadImageSuccess, (state, action) => ({
+    ...state,
+    catImage: action.catImage
+  }))
 );

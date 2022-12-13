@@ -15,7 +15,6 @@ export const getCatBreedsId = createAction(CAT_IMAGE_BY_ID,
   props<{ catId: string }>()
 );
 
-
 export const loadImageByBreed = createAction(LOAD_IMAGE);
 export const loadImageByBreedSuccess = createAction(
   LOAD_IMAGE_SUCCESS,

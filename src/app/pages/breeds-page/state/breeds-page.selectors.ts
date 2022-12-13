@@ -12,11 +12,11 @@ export const selectCatInfoByBreed = createSelector(
 	state => state.catBreed
 );
 
-
 export const selectCatsId = createSelector(
 	selectFeature,
 	state => state.catBreedId
 );
+
 export const selectCatImageByBreed = createSelector(
 	selectFeature,
 	state => state.catImage

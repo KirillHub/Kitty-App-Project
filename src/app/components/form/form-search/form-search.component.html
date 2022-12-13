@@ -1,0 +1,23 @@
+<div class="form-page__search-cats search-cats">
+
+  <div class="search-cats__body">
+
+    <div class="search-cats__cat-info">
+      <div *ngIf="catBreed.length !== 0">
+        <div *ngFor="let catInfo of catBreed">
+          <div class="search-cats__name">{{catInfo.name}}</div>
+          <div class="search-cats__descr">{{catInfo.description}}</div>
+          <p class="search-cats__line"> ---- </p>
+          <div class="search-cats__temperament">{{catInfo.temperament}}</div>
+
+          <div class="search-cats__cat-image">
+            <img [src]="catInfo.image.url" [alt]="catInfo.id" class="breeds__img-main">
+          </div>
+        </div>
+
+      </div>
+      <div *ngIf="catBreed.length === 0">Your search result will be displayed here 😻😻😻</div>
+    </div>
+
+  </div>
+</div>

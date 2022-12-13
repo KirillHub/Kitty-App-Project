@@ -13,13 +13,11 @@ import { AppState } from 'src/app/store/app.state';
 })
 
 export class ImagesSearchCatImagesComponent implements OnInit {
-
   getCatsImagesByUserSettings$?: Observable<TCatImage[]>
 
   constructor(
     private store: Store<AppState>
   ) { }
-
 
   ngOnInit(): void {
     this.store.dispatch(loadCatImagesAction())

@@ -12,7 +12,7 @@ import { setLoadingSpinner } from 'src/app/store/Shared/shared.actions';
   styleUrls: ['./vote-buttons.component.scss']
 })
 
-export class VoteButtonsComponent implements OnDestroy {
+export class VoteButtonsComponent {
   @Input() catImageId?: string;
 
   catsRandomImageId = '';
@@ -33,24 +33,15 @@ export class VoteButtonsComponent implements OnDestroy {
 
     switch (target.textContent) {
       case this.buttonLoveIt.toUpperCase().trim():
-        this.subscriptions?.push(
           this.catsService.voteUp(this.catsRandomImageId).subscribe()
-        );
         break;
-
       case this.buttonNopeIt.toUpperCase().trim():
-        this.subscriptions?.push(
           this.catsService.voteDown(this.catsRandomImageId).subscribe()
-        );
         break;
     };
 
     this.store.dispatch(loadImage());
     this.store.dispatch(setLoadingSpinner({ status: true }));
-  };
-
-  ngOnDestroy(): void {
-    this.subscriptions?.forEach(s => s.unsubscribe())
   };
 
 }

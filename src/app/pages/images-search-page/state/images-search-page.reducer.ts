@@ -1,5 +1,9 @@
 import { createReducer, on } from "@ngrx/store";
-import { actualUserSettingForSearchImages, loadCategoriesSuccess, loadCatImagesSuccessAction } from "./images-search-page.actions";
+import {
+  actualUserSettingForSearchImages,
+  loadCategoriesSuccess,
+  loadCatImagesSuccessAction
+} from "./images-search-page.actions";
 import { initialState } from "./images-search-page.state";
 
 export const imagesSearchReducer = createReducer(

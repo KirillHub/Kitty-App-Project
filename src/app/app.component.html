@@ -17,12 +17,16 @@
         <li>
           <a [routerLink]="['/images-search']">IMAGES/SEARCH</a>
         </li>
+        <li>
+          <a [routerLink]="['/form']">SEARCH FORM</a>
+        </li>
       </ul>
     </nav>
   </header>
 
-  <app-loading-spinner
-  *ngIf="showLoading$ | async"></app-loading-spinner>
+  <app-loading-spinner *ngIf="showLoading$ | async">
+  </app-loading-spinner>
+
   <app-error-data></app-error-data>
 
   <router-outlet></router-outlet>

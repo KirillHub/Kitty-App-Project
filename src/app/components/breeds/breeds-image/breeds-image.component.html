@@ -1,13 +1,11 @@
-
-  <div class="breeds__main-container">
-    <div>
-      <carousel class="breeds__carouser-text-center">
-          <div *ngFor="let catImage of catBreedImage$ | async" class="text-center">
-            <slide>
-              <img [src]="catImage.url" [alt]="catImage.id" class="breeds__img-main"
-                style="display: block; width: 100%;">
-            </slide>
-          </div>
-      </carousel>
-    </div>
+<div class="breeds__main-container">
+  <div>
+    <carousel class="breeds__carouser-text-center">
+      <div *ngFor="let catImage of catBreedImage$ | async" class="text-center">
+        <slide>
+          <img [src]="catImage.url" [alt]="catImage.id" class="breeds__img-main" style="display: block; width: 100%;">
+        </slide>
+      </div>
+    </carousel>
   </div>
+</div>

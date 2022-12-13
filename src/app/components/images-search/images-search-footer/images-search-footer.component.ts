@@ -16,7 +16,6 @@ import { AppState } from 'src/app/store/app.state';
 })
 
 export class ImagesSearchFooterComponent implements OnInit, OnDestroy {
-
   currentUserSettings!: TUserSettingsParam;
   subscription?: Subscription;
 

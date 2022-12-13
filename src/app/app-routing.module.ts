@@ -10,16 +10,22 @@ const routes: Routes = [
   },
   {
     path: 'breeds',
-    resolve: { catBreeds: CatBreedsResolver }, 
+    resolve: { catBreeds: CatBreedsResolver },
     loadChildren: () => import('./pages/breeds-page/breeds-page.module')
       .then(module => module.BreedsPageModule)
   },
   {
     path: 'images-search',
     resolve: { catBreeds: CatBreedsResolver },
-    loadChildren: () => import('./pages/images-search-page/images-search-page.module').
-      then(module => module.ImagesSearchPageModule)
+    loadChildren: () => import('./pages/images-search-page/images-search-page.module')
+      .then(module => module.ImagesSearchPageModule)
   },
+  {
+    path: 'form',
+    resolve: { catBreeds: CatBreedsResolver },
+    loadChildren: () => import('./pages/form-page/form-page.module')
+      .then(module => module.FormPageModule)
+  }
 ];
 
 @NgModule({
