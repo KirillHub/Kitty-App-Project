@@ -6,7 +6,18 @@ export const IMAGES_SEARCH_NAME = 'images-search';
 export const selectFeature =
   createFeatureSelector<ImagesSearchState>(IMAGES_SEARCH_NAME);
 
-export const selectDefaulfSearchSettings = createSelector(
+export const selectUserSearchSettings = createSelector(
   selectFeature,
-  state => state.defaultUserSettingsParam
+  state => state.userSettingsParam
+);
+
+export const selectCatCategories = createSelector(
+  selectFeature,
+  state => state.catCategories
+)
+
+
+export const loadingCatImagesSelector = createSelector(
+  selectFeature,
+  state => state.loadingCatImages
 );

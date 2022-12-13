@@ -7,7 +7,8 @@ import { TCatsCategories } from 'src/app/models/catsCategories';
 import { CatBreedsService } from 'src/app/services/cat-breeds.service';
 import { AppState } from 'src/app/store/app.state';
 import { Store } from '@ngrx/store';
-import { selectDefaulfSearchSettings } from 'src/app/pages/images-search-page/state/images-search-page.selectors';
+import { actualUserSettingForSearchImages } from 'src/app/pages/images-search-page/state/images-search-page.actions';
+import { selectUserSearchSettings } from 'src/app/pages/images-search-page/state/images-search-page.selectors';
 
 @Component({
   selector: 'app-images-search',
@@ -18,8 +19,6 @@ import { selectDefaulfSearchSettings } from 'src/app/pages/images-search-page/st
 export class ImagesSearchComponent implements OnInit, OnDestroy {
 
   getDefaultCatsImages: TCatImage[] = [];
-  @Input() getCatsCategories: TCatsCategories[] = [];
-  getCatsBreeds$?: Observable<TCat[]>;
   defaultUserSettingsParam!: TUserSettingsParam;
 
   currentUserSettings!: TUserSettingsParam;
@@ -31,11 +30,44 @@ export class ImagesSearchComponent implements OnInit, OnDestroy {
     private store: Store<AppState>
   ) { }
 
-  cats$ = new Subject();
   subscriptions: Subscription[] = [];
 
 
 
+  loadMoreImages(event: Event) { //! later
+    if (event) {
+      this.getNewImagesByUserSettings(this.currentUserSettings);
+    }
+  };
+  getNewImagesByUserSettings(currentUserSettings: TUserSettingsParam) { //! later
+    this.catsService.getCatsImagesByUserSettings(currentUserSettings).subscribe(
+      catsImages => this.getDefaultCatsImages = catsImages
+    )
+  };
+
+
+  ngOnInit(): void {
+
+    this.store.select(selectUserSearchSettings).subscribe(
+      defaultSettings => this.defaultUserSettingsParam = defaultSettings
+    );
+
+    this.currentUserSettings = this.defaultUserSettingsParam;
+
+    this.catsService.getCatsImagesByUserSettings(this.defaultUserSettingsParam)
+      .subscribe(catImages => {
+        this.getDefaultCatsImages = catImages
+      });
+
+  };
+
+  ngOnDestroy(): void { }
+
+}
+
+
+
+/*
   userEventsListener(event: Event) {
     let userSettingEvent = (event.target as HTMLSelectElement)
 
@@ -54,42 +86,7 @@ export class ImagesSearchComponent implements OnInit, OnDestroy {
         break;
     };
 
-    this.getNewImagesByUserSettings(this.currentUserSettings);
+    // this.getNewImagesByUserSettings(this.currentUserSettings);
+    this.store.dispatch(actualUserSettingForSearchImages({userSettings: this.currentUserSettings}))
   };
-
-  loadMoreImages(event: Event) { //! later
-    if (event) {
-      this.getNewImagesByUserSettings(this.currentUserSettings);
-    }
-  };
-  getNewImagesByUserSettings(currentUserSettings: TUserSettingsParam) { //! later
-    this.catsService.getCatsImagesByUserSettings(currentUserSettings).subscribe(
-      catsImages => this.getDefaultCatsImages = catsImages
-    )
-  };
-
-
-  ngOnInit(): void {
-
-    this.store.select(selectDefaulfSearchSettings).subscribe(
-      defaultSettings => this.defaultUserSettingsParam = defaultSettings
-    );
-
-    this.getCatsBreeds$ = this.catBreedsService.entities$
-
-    this.currentUserSettings = this.defaultUserSettingsParam;
-
-
-
-    this.catsService.getCatsImagesByUserSettings(this.defaultUserSettingsParam)
-      .subscribe(catImages => {
-        this.getDefaultCatsImages = catImages
-      });
-
-  };
-
-  ngOnDestroy(): void { }
-
-}
-
-
+*/

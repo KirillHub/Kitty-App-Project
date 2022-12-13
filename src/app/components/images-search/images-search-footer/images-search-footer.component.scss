@@ -1,0 +1,38 @@
+
+.images-search{
+
+
+  &__footer{
+    display: flex;
+    max-width: 60%;
+    margin: 0 auto;
+  }
+    &__limit{
+      width: 70%;
+      margin-right: 4em;
+      span{
+        color: rgba(0, 0, 0, 0.664);
+        display: block;
+        padding-left: 0.6rem;
+        margin-bottom: 0.3rem;
+      }
+  }
+  &__btn{
+    margin-top: 12px;
+    position: relative;
+    min-width: 140px;
+    background-color:rgba(238, 163, 175, 0.603);
+    font-size: 15px;
+    height: 42px;
+    padding: 0 32px;
+    padding-right: 10px;
+    line-height: 120%;
+    border-radius: 5px;
+    font-weight: 600;
+  }
+  &__svg{
+    position: absolute;
+    left: 22px;
+    top: 13px;
+  }
+}

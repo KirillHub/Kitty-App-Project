@@ -3,6 +3,9 @@ import { NgModule } from "@angular/core";
 import { EffectsModule } from "@ngrx/effects";
 import { StoreModule } from "@ngrx/store";
 import { AngularSvgIconModule } from "angular-svg-icon";
+import { ImagesSearchCatCategoriesComponent } from "src/app/components/images-search/images-search-cat-categories/images-search-cat-categories.component";
+import { ImagesSearchCatImagesComponent } from "src/app/components/images-search/images-search-cat-images/images-search-cat-images.component";
+import { ImagesSearchFooterComponent } from "src/app/components/images-search/images-search-footer/images-search-footer.component";
 import { ImagesSearchComponent } from "src/app/components/images-search/images-search.component";
 import { ImagesSearchPageComponent } from "./components/images-search-page.component";
 import { ImageSearchRoutingModule } from "./image-search-routing.module";
@@ -21,6 +24,9 @@ import { IMAGES_SEARCH_NAME } from "./state/images-search-page.selectors";
   declarations: [
     ImagesSearchComponent,
     ImagesSearchPageComponent,
+    ImagesSearchCatImagesComponent,
+    ImagesSearchCatCategoriesComponent,
+    ImagesSearchFooterComponent,
   ],
   exports: []
 })

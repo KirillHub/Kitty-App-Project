@@ -74,6 +74,18 @@ export class CatsService {
       )
   };
 
+  getCatImagesByBreed(breedID: string, setLimit: number) {
+    return this.http
+      .get<TCatImage[]>(`https://api.thecatapi.com/v1/images/search?breed_ids=${breedID}`,
+        {
+          headers: this.headers,
+          params: new HttpParams().append('limit', setLimit),
+        })
+      .pipe(
+        catchError(this.errorHandler.bind(this))
+      )
+  }
+
   getCatsImagesByUserSettings(userSettings: TUserSettingsParam): Observable<TCatImage[]> {
     let param = new HttpParams();
     let keys = Object.keys(userSettings);

@@ -1,0 +1,8 @@
+<div class="images-search__wrapper">
+  <div class="images-search__images-container"
+   *ngFor="let defaultCatImage of getCatsImagesByUserSettings$ | async">
+    <div class="images-search__grid-cell">
+      <img class="images-search__img" [src]="defaultCatImage.url" alt="">
+    </div>
+  </div>
+</div>

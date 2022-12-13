@@ -6,9 +6,19 @@ export const BREEDS_STATE_NAME = 'breeds';
 export const selectFeature =
 	createFeatureSelector<BreedsState>(BREEDS_STATE_NAME);
 
-export const selectCatImageByBreed = createSelector(
+
+export const selectCatInfoByBreed = createSelector(
 	selectFeature,
-	state => state.catImageByBreed
+	state => state.catBreed
 );
 
+
+export const selectCatsId = createSelector(
+	selectFeature,
+	state => state.catBreedId
+);
+export const selectCatImageByBreed = createSelector(
+	selectFeature,
+	state => state.catImage
+);
 

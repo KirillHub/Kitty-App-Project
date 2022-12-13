@@ -1,0 +1,21 @@
+
+.images-search{
+
+  &__wrapper{
+    display: grid;
+		grid-template-columns: repeat(3, 200px);
+		grid-template-rows: (3, minmax(200px, auto));
+		grid-auto-rows: minmax(44px, auto);
+		row-gap: 1.6em;
+		column-gap: 1.6em;
+    margin: 0 auto 2.3em auto;
+    justify-content: space-around;
+  }
+  &__img{
+    object-fit: cover;
+    width: 200px;
+    height: 200px;
+  }
+
+
+}

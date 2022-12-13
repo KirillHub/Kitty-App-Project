@@ -1,11 +1,13 @@
 import { TCat, TCatImage } from "src/app/models/cats";
 
 export interface BreedsState {
-  catImageByBreed: TCatImage[] | [],
-  catBreeds: TCat[] | []
+  catBreed: TCat[] | [],
+  catImage: TCatImage[] | [],
+  catBreedId: string
 }
 
 export const initialState: BreedsState = {
-  catImageByBreed: [],
-  catBreeds: []
+  catBreed: [],
+  catImage: [],
+  catBreedId: 'abys'
 }
